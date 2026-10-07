@@ -1,0 +1,1 @@
+const s={name:"BARNES MOSCOW",description:"Агентство элитной недвижимости BARNES в Москве.",logo:"/arenda_sobstvennikam/pictures/logo.svg",openingHours:"Mo-Fr 09:00-21:00",address:{streetAddress:"улица Петровка, 19с1",addressLocality:"Москва",addressCountry:"RU"},geo:{latitude:55.7625,longitude:37.6164}},e="#identity";export{s as B,e as a};

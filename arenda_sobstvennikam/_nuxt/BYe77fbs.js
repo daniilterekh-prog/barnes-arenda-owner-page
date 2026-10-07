@@ -1,0 +1,1 @@
+import{f as i,t as o}from"./B9PCyV3B.js";function s(e){i({title:()=>o(e)?.title,description:()=>o(e)?.description,keywords:()=>o(e)?.keywords,ogTitle:()=>o(e)?.title,ogDescription:()=>o(e)?.description})}export{s as u};

@@ -1,0 +1,15 @@
+{
+  "name": "BARNES / Москва",
+  "slug": "06-barnes-moscow",
+  "selector": ".about-company",
+  "source": "arenda_sobstvennikam/index.html",
+  "styles": [
+    "../../src/reference-ui-overrides.css"
+  ],
+  "behavior": "../../src/reference-ui-behavior.js",
+  "assetRoots": [
+    "../../arenda_sobstvennikam/assets",
+    "../../arenda_sobstvennikam/pictures",
+    "../../arenda_sobstvennikam/fonts"
+  ]
+}

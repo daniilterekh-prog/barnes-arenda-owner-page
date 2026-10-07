@@ -1,0 +1,15 @@
+{
+  "name": "Стратегия презентации",
+  "slug": "04-presentation",
+  "selector": ".owner-sale-presentation",
+  "source": "arenda_sobstvennikam/index.html",
+  "styles": [
+    "../../src/reference-ui-overrides.css"
+  ],
+  "behavior": "../../src/reference-ui-behavior.js",
+  "assetRoots": [
+    "../../arenda_sobstvennikam/assets",
+    "../../arenda_sobstvennikam/pictures",
+    "../../arenda_sobstvennikam/fonts"
+  ]
+}

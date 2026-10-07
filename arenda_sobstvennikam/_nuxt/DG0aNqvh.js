@@ -1,0 +1,1 @@
+const e={hero:"/arenda_sobstvennikam/pictures/placeholders/hero.svg",landscape:"/arenda_sobstvennikam/pictures/placeholders/landscape.svg",portrait:"/arenda_sobstvennikam/pictures/placeholders/portrait.svg",wide:"/arenda_sobstvennikam/pictures/placeholders/wide.svg",card:"/arenda_sobstvennikam/pictures/placeholders/card.svg"};export{e as P};
