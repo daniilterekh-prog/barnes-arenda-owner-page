@@ -564,6 +564,11 @@ body.owner-rent-reference-ui .owner-sale-hero .breadcrumbs__link {
   }
 }
 
+/* Prevent the compiled legacy popup from painting before its synchronous enhancement. */
+.owner-rent-reference-ui .feedback-modal:not(.feedback-modal--owner-rent) .modal__content {
+  visibility: hidden;
+}
+
 /* Rental valuation popup: the original form remains responsible for validation and submission. */
 .owner-rent-reference-ui .feedback-modal--owner-rent .modal__content {
   background: #fff;
