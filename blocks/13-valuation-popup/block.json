@@ -1,0 +1,15 @@
+{
+  "name": "Всплывающая форма оценки аренды",
+  "slug": "13-valuation-popup",
+  "selector": ".feedback-modal",
+  "source": "arenda_sobstvennikam/index.html",
+  "styles": [
+    "../../src/reference-ui-overrides.css"
+  ],
+  "behavior": "../../src/reference-ui-behavior.js",
+  "assetRoots": [
+    "../../arenda_sobstvennikam/assets",
+    "../../arenda_sobstvennikam/pictures",
+    "../../arenda_sobstvennikam/fonts"
+  ]
+}

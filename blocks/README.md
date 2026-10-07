@@ -14,5 +14,6 @@
 | `10-newsletter` | Email-рассылка | `.newsletter-cta` |
 | `11-footer` | Footer | `.site-footer` |
 | `12-floating-expert` | Плавающий контакт эксперта | `.floating-expert` |
+| `13-valuation-popup` | Всплывающая форма оценки аренды | `.feedback-modal` |
 
 В каждой папке находятся `fragment.html`, локальный `README.md` и `block.json`. Общие CSS/JS и ассеты специально не дублируются.

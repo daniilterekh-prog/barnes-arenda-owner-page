@@ -212,6 +212,14 @@
       brand.insertBefore(request, phone);
     }
 
+    if (!brand.querySelector('.owner-sale-sticky__ambassadors')) {
+      var ambassadors = document.createElement('a');
+      ambassadors.className = 'owner-sale-sticky__ambassadors';
+      ambassadors.href = 'https://barn-estate.ru/for-partners/';
+      ambassadors.textContent = 'Амбассадоры';
+      brand.insertBefore(ambassadors, brand.firstChild);
+    }
+
     if (!brand.querySelector('.owner-sale-sticky__messengers')) {
       var messengers = document.createElement('nav');
       messengers.className = 'owner-sale-sticky__messengers';
@@ -269,7 +277,7 @@
       ];
       list.innerHTML = anchors.map(function (item) {
         return '<li class="owner-sale-sticky__item"><a class="owner-sale-sticky__link" href="#' + item[1] + '">' + item[0] + '</a></li>';
-      }).join('') + '<li class="owner-sale-sticky__item owner-sale-sticky__item--contacts"><button class="owner-sale-sticky__contact-toggle" type="button" aria-expanded="false" aria-controls="owner-rent-sticky-contacts" aria-label="Показать способы связи"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.4 8.4 0 0 1-9 8.5 9.8 9.8 0 0 1-4-.9L3 21l1.7-4.6A8.4 8.4 0 1 1 21 11.5Z"/><path d="M8 12h.01M12 12h.01M16 12h.01"/></svg></button></li>';
+      }).join('') + '<li class="owner-sale-sticky__item owner-sale-sticky__item--ambassadors"><a class="owner-sale-sticky__link" href="https://barn-estate.ru/for-partners/">Амбассадоры</a></li><li class="owner-sale-sticky__item owner-sale-sticky__item--contacts"><button class="owner-sale-sticky__contact-toggle" type="button" aria-expanded="false" aria-controls="owner-rent-sticky-contacts" aria-label="Показать способы связи"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.4 8.4 0 0 1-9 8.5 9.8 9.8 0 0 1-4-.9L3 21l1.7-4.6A8.4 8.4 0 1 1 21 11.5Z"/><path d="M8 12h.01M12 12h.01M16 12h.01"/></svg></button></li>';
       list.dataset.ownerRentAnchors = 'true';
     }
 
@@ -292,6 +300,93 @@
         toggle.setAttribute('aria-label', willOpen ? 'Скрыть способы связи' : 'Показать способы связи');
       });
     }
+  }
+
+  function enhanceFeedbackModal() {
+    var modal = document.querySelector('.feedback-modal');
+    var layout = modal && modal.querySelector('.feedback-modal__layout');
+    var hero = modal && modal.querySelector('.feedback-modal__hero');
+    var body = modal && modal.querySelector('.feedback-modal__body');
+    var form = modal && modal.querySelector('.feedback-modal__form');
+    var title = modal && modal.querySelector('.feedback-modal__title');
+
+    if (!modal || !layout || !hero || !body || !form || !title) return;
+    if (modal.dataset.ownerRentModal === 'true') return;
+    modal.dataset.ownerRentModal = 'true';
+    modal.classList.add('feedback-modal--owner-rent');
+
+    title.textContent = 'За сколько можно сдать вашу недвижимость?';
+    var intro = document.createElement('p');
+    intro.className = 'feedback-modal__intro';
+    intro.textContent = 'Поможем определить арендную ставку и найти подходящего арендатора.';
+    title.insertAdjacentElement('afterend', intro);
+
+    hero.querySelectorAll('.feedback-modal__hero-overlay, .feedback-modal__brand').forEach(function (node) {
+      node.remove();
+    });
+    var image = hero.querySelector('.feedback-modal__hero-image');
+    if (image) {
+      var picture = document.createElement('picture');
+      var source = document.createElement('source');
+      source.media = '(max-width: 580px)';
+      source.srcset = '/arenda_sobstvennikam/pictures/feedback-modal/interior-mobile.webp';
+      image.parentNode.insertBefore(picture, image);
+      picture.append(source, image);
+      image.src = '/arenda_sobstvennikam/pictures/feedback-modal/interior-desktop.webp';
+      image.alt = 'Премиальный интерьер с панорамным видом';
+    }
+
+    var channels = document.createElement('div');
+    channels.className = 'feedback-modal__channels';
+    channels.setAttribute('role', 'group');
+    channels.setAttribute('aria-label', 'Способ связи');
+    var channelValue = document.createElement('input');
+    channelValue.type = 'hidden';
+    channelValue.name = 'preferredChannel';
+    channelValue.value = 'Telegram';
+    ['Telegram', 'WhatsApp', 'MAX', 'Звонок'].forEach(function (channel, index) {
+      var button = document.createElement('button');
+      button.type = 'button';
+      button.textContent = channel;
+      button.dataset.channel = channel;
+      button.setAttribute('aria-pressed', index === 0 ? 'true' : 'false');
+      channels.appendChild(button);
+    });
+
+    var fields = form.querySelectorAll('.feedback-modal__input');
+    var firstField = fields[0] && fields[0].closest('.feedback-modal__field');
+    if (firstField) form.insertBefore(channels, firstField);
+    form.appendChild(channelValue);
+
+    if (fields[0]) {
+      fields[0].name = fields[0].name || 'name';
+      fields[0].placeholder = 'Ваше имя';
+      fields[0].setAttribute('aria-label', 'Ваше имя');
+    }
+    if (fields[1]) {
+      fields[1].name = fields[1].name || 'phone';
+      fields[1].placeholder = 'Номер телефона в Telegram';
+      fields[1].setAttribute('aria-label', 'Номер телефона в Telegram');
+    }
+
+    var submit = form.querySelector('.feedback-modal__submit');
+    if (submit) submit.textContent = 'Получить оценку';
+
+    channels.addEventListener('click', function (event) {
+      var button = event.target.closest('button[data-channel]');
+      if (!button) return;
+      channels.querySelectorAll('button').forEach(function (item) {
+        item.setAttribute('aria-pressed', String(item === button));
+      });
+      channelValue.value = button.dataset.channel;
+      if (fields[1]) {
+        var label = button.dataset.channel === 'Звонок' ? 'Номер телефона' : 'Номер телефона в ' + button.dataset.channel;
+        fields[1].placeholder = label;
+        fields[1].setAttribute('aria-label', label);
+      }
+    });
+
+    layout.insertBefore(body, hero);
   }
 
   function enhanceExclusiveSection() {
@@ -693,6 +788,7 @@
       enhanceAmbassadorsLinks();
       enhanceHeroSection();
       enhanceStickyHeader();
+      enhanceFeedbackModal();
       enhanceServicesSection();
       enhanceExclusiveSection();
       enhanceSectionHeadings();

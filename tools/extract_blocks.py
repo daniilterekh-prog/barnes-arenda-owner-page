@@ -25,10 +25,12 @@ DEFINITIONS = (
     ("10-newsletter", "Email-рассылка", "section", "newsletter-cta"),
     ("11-footer", "Footer", "footer", "site-footer"),
     ("12-floating-expert", "Плавающий контакт эксперта", "aside", "floating-expert"),
+    ("13-valuation-popup", "Всплывающая форма оценки аренды", "div", "feedback-modal"),
 )
 
 DYNAMIC_FALLBACKS = {
     "12-floating-expert": '<aside data-v-cd0a1259="" class="floating-expert floating-expert--gorodskaya" aria-label="Руслан Прус"><button data-v-cd0a1259="" type="button" class="floating-expert__card" aria-haspopup="dialog"><span data-v-cd0a1259="" class="floating-expert__avatar"><img data-v-cd0a1259="" src="/arenda_sobstvennikam/pictures/consultation/cta-ruslan-pruss.webp" alt="Руслан Прус" width="72" height="72" loading="lazy" decoding="async"></span><span data-v-cd0a1259="" class="floating-expert__content"><span data-v-cd0a1259="" class="floating-expert__label">Руководитель департамента городской недвижимости</span><span data-v-cd0a1259="" class="floating-expert__title">Задать вопрос эксперту</span><span data-v-cd0a1259="" class="floating-expert__name">Руслан Прус</span></span></button><button data-v-cd0a1259="" type="button" class="floating-expert__close" aria-label="Скрыть карточку Руслан Прус"></button></aside>',
+    "13-valuation-popup": '<div class="feedback-modal feedback-modal--owner-rent" role="dialog" aria-modal="true" aria-labelledby="owner-rent-valuation-title"><div class="feedback-modal__layout"><div class="feedback-modal__body"><h2 class="feedback-modal__title" id="owner-rent-valuation-title">За сколько можно сдать вашу недвижимость?</h2><p class="feedback-modal__intro">Поможем определить арендную ставку и найти подходящего арендатора.</p><form class="feedback-modal__form"><div class="feedback-modal__channels" role="group" aria-label="Способ связи"><button type="button" data-channel="Telegram" aria-pressed="true">Telegram</button><button type="button" data-channel="WhatsApp" aria-pressed="false">WhatsApp</button><button type="button" data-channel="MAX" aria-pressed="false">MAX</button><button type="button" data-channel="Звонок" aria-pressed="false">Звонок</button></div><label class="feedback-modal__field"><input class="feedback-modal__input" name="name" autocomplete="name" placeholder="Ваше имя" aria-label="Ваше имя"></label><label class="feedback-modal__field"><input class="feedback-modal__input" name="phone" type="tel" inputmode="tel" autocomplete="tel" placeholder="Номер телефона в Telegram" aria-label="Номер телефона в Telegram" required></label><button class="feedback-modal__submit" type="submit">Получить оценку</button><label class="feedback-modal__consent"><input type="checkbox" name="consent" required><span>Я даю согласие на обработку персональных данных</span></label></form></div><div class="feedback-modal__hero"><picture><source media="(max-width: 580px)" srcset="/arenda_sobstvennikam/pictures/feedback-modal/interior-mobile.webp"><img class="feedback-modal__hero-image" src="/arenda_sobstvennikam/pictures/feedback-modal/interior-desktop.webp" alt="Премиальный интерьер с панорамным видом"></picture></div></div></div>',
 }
 
 
@@ -77,6 +79,8 @@ def write_block(slug: str, title: str, tag: str, class_name: str, fragment: str)
     note = ""
     if slug == "08-consultation":
         note = "\nПри загрузке `reference-ui-behavior.js` исходный `.catalog-contact` преобразуется в актуальный `.catalog-consultation`.\n"
+    if slug == "13-valuation-popup":
+        note = "\nРазметка показывает итоговое состояние. В рабочей странице `reference-ui-behavior.js` улучшает штатную форму, сохраняя её обработчик отправки и валидацию.\n"
     readme = f"""# {title}
 
 - Исходный селектор: `{selector}`
@@ -93,10 +97,13 @@ def main() -> None:
     html = SOURCE.read_text(encoding="utf-8")
     for definition in DEFINITIONS:
         slug, title, tag, class_name = definition
-        try:
-            fragment = extract_balanced(html, tag, class_name)
-        except ValueError:
+        if slug == "13-valuation-popup":
             fragment = DYNAMIC_FALLBACKS[slug]
+        else:
+            try:
+                fragment = extract_balanced(html, tag, class_name)
+            except ValueError:
+                fragment = DYNAMIC_FALLBACKS[slug]
         write_block(slug, title, tag, class_name, fragment)
         print(f"exported {slug}")
 
