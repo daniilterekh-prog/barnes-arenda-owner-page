@@ -93,6 +93,7 @@
       ['Зарубежная', 'https://barn-estate.ru/mezhdunarodnaya-nedvizhimost/', [['ОАЭ', 'https://barn-estate.ru/oae/'], ['Турция', 'https://barn-estate.ru/mezhdunarodnaya-nedvizhimost/turtsiya/'], ['Таиланд', 'https://barn-estate.ru/tailand/'], ['Бали', 'https://barn-estate.ru/zhilye-kompleksy-indonesia/'], ['Испания', 'https://barn-estate.ru/ispaniya/'], ['Италия', 'https://barn-estate.ru/italiya/'], ['Португалия', 'https://barn-estate.ru/portugaliya/'], ['Франция', 'https://barn-estate.ru/frantsiya/'], ['Оман', 'https://barn-estate.ru/oman/'], ['Жилые комплексы', 'https://barn-estate.ru/mezhdunarodnaya-nedvizhimost-zhilye-kompleksy/']]],
       ['Санкт-Петербург', 'https://barnes-spb.ru', [['Вторичная', 'https://barnes-spb.ru/gorodskaya-nedvizhimost/vtorichnaya-nedvizhimost/'], ['Новостройки', 'https://barnes-spb.ru/gorodskaya-nedvizhimost/novostroyki/'], ['Загородная', 'https://barnes-spb.ru/zagorodnaya-nedvizhimost/'], ['Коммерческая', 'https://barnes-spb.ru/kommercheskaya-nedvizhimost/'], ['Эксклюзив', 'https://barnes-spb.ru/exclusive/'], ['Апартаменты', 'https://barnes-spb.ru/gorodskaya-nedvizhimost/filter/type_immovables-is-apartamenty/'], ['Пентхаус', 'https://barnes-spb.ru/gorodskaya-nedvizhimost/filter/type_immovables-is-penthausy/']]],
       ['Медиа', 'https://barn-estate.ru/media/', [['Блог', 'https://barn-estate.ru/media/blog/'], ['Новости', 'https://barn-estate.ru/media/novosti/'], ['Вебинары и видео', 'https://barn-estate.ru/media/vebinary-i-video/'], ['Аналитика рынка', 'https://barn-estate.ru/media/analitika/'], ['Искусство жить', 'https://barn-estate.ru/media/stil-zhizni/'], ['Кейсы', 'https://barn-estate.ru/media/cases/'], ['Журнал', 'https://barn-estate.ru/zhurnaly/']]],
+      ['Амбассадоры', 'https://barn-estate.ru/for-partners/', []],
       ['О BARNES', 'https://barn-estate.ru/mir-barnes/', [['Контакты', 'https://barn-estate.ru/contacts/'], ['Партнерам', 'https://barn-estate.ru/for-partners/'], ['Barnes Club', 'https://barn-estate.ru/barnes-club/'], ['СМИ о нас', 'https://barn-estate.ru/novosti/smi-o-nas/'], ['Мероприятия', 'https://barn-estate.ru/novosti/meropriyatiya/'], ['Команда', 'https://barn-estate.ru/team/'], ['Вакансии', 'https://barn-estate.ru/vacancies/'], ['Стиль жизни', 'https://barn-estate.ru/stily-zhizni/']]],
       ['Собственникам', 'https://barn-estate.ru/sobstvennikam/', [['Продажа', 'https://barn-estate.ru/prodazha_sobstvennikam/'], ['Аренда', 'https://barn-estate.ru/arenda_sobstvennikam/']]]
     ];
@@ -101,12 +102,54 @@
     nav.setAttribute('aria-label', 'Основное меню');
     nav.setAttribute('data-v-7912d681', '');
     nav.innerHTML = '<ul class="site-header__nav-list" data-v-7912d681>' + items.map(function (item) {
-      var subnav = '<ul class="site-header__subnav" data-v-7912d681>' + item[2].map(function (subitem) {
+      var subnav = item[2].length ? '<ul class="site-header__subnav" data-v-7912d681>' + item[2].map(function (subitem) {
         return '<li data-v-7912d681><a class="site-header__subnav-link" href="' + subitem[1] + '" data-v-7912d681>' + subitem[0] + '</a></li>';
-      }).join('') + '</ul>';
+      }).join('') + '</ul>' : '';
       return '<li class="site-header__nav-item owner-rent-nav-item" data-v-7912d681><a class="site-header__nav-link" href="' + item[1] + '" data-v-7912d681>' + item[0] + '</a>' + subnav + '</li>';
     }).join('') + '</ul>';
     inner.appendChild(nav);
+  }
+
+  function enhanceAmbassadorsLinks() {
+    var label = 'Амбассадоры';
+    var href = 'https://barn-estate.ru/for-partners/';
+
+    function appendToGroup(group, listSelector, linkClass) {
+      var list = group && group.querySelector(listSelector);
+      if (!list || Array.from(list.querySelectorAll('a')).some(function (link) {
+        return link.textContent.trim() === label;
+      })) return;
+
+      var sampleItem = list.querySelector(':scope > li');
+      var item = sampleItem ? sampleItem.cloneNode(true) : document.createElement('li');
+      var link = item.querySelector('a');
+      if (!link) {
+        link = document.createElement('a');
+        link.className = linkClass;
+        item.appendChild(link);
+      }
+      link.textContent = label;
+      link.href = href;
+      link.removeAttribute('aria-current');
+      list.appendChild(item);
+    }
+
+    document.querySelectorAll('.site-footer__column').forEach(function (column) {
+      var title = column.querySelector('.site-footer__column-title');
+      if (title && title.textContent.trim().toUpperCase() === 'О BARNES') {
+        appendToGroup(column, '.site-footer__links', 'site-footer__link');
+      }
+    });
+
+    document.querySelectorAll('.site-menu__nav-group, .site-menu__bottom-group').forEach(function (group) {
+      var title = group.querySelector('.site-menu__nav-title, .site-menu__bottom-title');
+      if (!title || title.textContent.trim().toUpperCase() !== 'О BARNES') return;
+      if (group.querySelector('.site-menu__nav-list')) {
+        appendToGroup(group, '.site-menu__nav-list', 'site-menu__nav-link');
+      } else {
+        appendToGroup(group, '.site-menu__bottom-list', 'site-menu__bottom-link');
+      }
+    });
   }
 
   function enhanceHeroHeaderContacts() {
@@ -647,6 +690,7 @@
       enhancePresentationCards();
       enhanceHeroHeaderContacts();
       enhanceHeroHeader();
+      enhanceAmbassadorsLinks();
       enhanceHeroSection();
       enhanceStickyHeader();
       enhanceServicesSection();
