@@ -595,19 +595,19 @@ body.owner-rent-reference-ui .owner-sale-hero .breadcrumbs__link {
 
 .owner-rent-reference-ui .feedback-modal--owner-rent .feedback-modal__title {
   color: #1e1e1e;
-  font-size: 24px;
-  font-weight: 400;
+  font-size: 34px;
+  font-weight: 300;
   letter-spacing: normal;
-  line-height: 1.35;
-  margin: 0 0 12px;
+  line-height: 1.1;
+  margin: 0 0 16px;
   text-align: left;
 }
 
 .owner-rent-reference-ui .feedback-modal--owner-rent .feedback-modal__intro {
   color: #555;
-  font-size: 16px;
+  font-size: 22px;
   font-weight: 300;
-  line-height: 1.4;
+  line-height: 28.16px;
   margin: 0 0 24px;
 }
 
@@ -626,9 +626,9 @@ body.owner-rent-reference-ui .owner-sale-hero .breadcrumbs__link {
   color: #555;
   cursor: pointer;
   font-family: inherit;
-  font-size: 16px;
-  font-weight: 300;
-  line-height: 1;
+  font-size: 17px;
+  font-weight: 400;
+  line-height: 18.7px;
   margin-bottom: -1px;
   min-height: 44px;
   min-width: 0;
@@ -655,10 +655,10 @@ body.owner-rent-reference-ui .owner-sale-hero .breadcrumbs__link {
   border-bottom: 1px solid #ccc;
   border-radius: 0;
   color: #1e1e1e;
-  font-size: 16px;
+  font-size: 20px;
   font-weight: 300;
   height: 56px;
-  line-height: 1.4;
+  line-height: 1.3;
   padding: 15px 0 12px;
   width: 100%;
 }
@@ -673,10 +673,10 @@ body.owner-rent-reference-ui .owner-sale-hero .breadcrumbs__link {
   border: 1px solid var(--owner-rent-ui-brand);
   border-radius: 3px;
   color: #fff;
-  font-size: 16px;
-  font-weight: 500;
+  font-size: 17px;
+  font-weight: 400;
   height: 64px;
-  line-height: 1;
+  line-height: 18.7px;
   margin-top: 28px;
   width: 100%;
 }
@@ -685,7 +685,7 @@ body.owner-rent-reference-ui .owner-sale-hero .breadcrumbs__link {
   color: #666;
   font-size: 13px;
   font-weight: 300;
-  line-height: 1.4;
+  line-height: 1.35;
   margin-top: 20px;
 }
 
@@ -742,6 +742,37 @@ body.owner-rent-reference-ui .owner-sale-hero .breadcrumbs__link {
 
   .owner-rent-reference-ui .feedback-modal--owner-rent :is(.feedback-modal__title, .feedback-modal__intro) {
     text-align: center;
+  }
+
+  .owner-rent-reference-ui .feedback-modal--owner-rent .feedback-modal__title {
+    font-size: 31px;
+    line-height: 1.05;
+  }
+
+  .owner-rent-reference-ui .feedback-modal--owner-rent .feedback-modal__intro {
+    font-size: 15px;
+    line-height: 19.2px;
+  }
+
+  .owner-rent-reference-ui .feedback-modal--owner-rent .feedback-modal__channels button {
+    font-size: 18px;
+    line-height: 19.8px;
+  }
+
+  .owner-rent-reference-ui .feedback-modal--owner-rent .feedback-modal__input {
+    font-size: 17px;
+  }
+
+  .owner-rent-reference-ui .feedback-modal--owner-rent .feedback-modal__submit {
+    font-size: 18px;
+    line-height: 19.8px;
+    min-height: 58px;
+  }
+}
+
+@media (min-width: 581px) and (max-width: 1440px) {
+  .owner-rent-reference-ui .feedback-modal--owner-rent .feedback-modal__input {
+    font-size: 18px;
   }
 }
 
