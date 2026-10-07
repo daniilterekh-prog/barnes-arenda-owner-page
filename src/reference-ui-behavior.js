@@ -94,7 +94,7 @@
       ['Санкт-Петербург', 'https://barnes-spb.ru', [['Вторичная', 'https://barnes-spb.ru/gorodskaya-nedvizhimost/vtorichnaya-nedvizhimost/'], ['Новостройки', 'https://barnes-spb.ru/gorodskaya-nedvizhimost/novostroyki/'], ['Загородная', 'https://barnes-spb.ru/zagorodnaya-nedvizhimost/'], ['Коммерческая', 'https://barnes-spb.ru/kommercheskaya-nedvizhimost/'], ['Эксклюзив', 'https://barnes-spb.ru/exclusive/'], ['Апартаменты', 'https://barnes-spb.ru/gorodskaya-nedvizhimost/filter/type_immovables-is-apartamenty/'], ['Пентхаус', 'https://barnes-spb.ru/gorodskaya-nedvizhimost/filter/type_immovables-is-penthausy/']]],
       ['Медиа', 'https://barn-estate.ru/media/', [['Блог', 'https://barn-estate.ru/media/blog/'], ['Новости', 'https://barn-estate.ru/media/novosti/'], ['Вебинары и видео', 'https://barn-estate.ru/media/vebinary-i-video/'], ['Аналитика рынка', 'https://barn-estate.ru/media/analitika/'], ['Искусство жить', 'https://barn-estate.ru/media/stil-zhizni/'], ['Кейсы', 'https://barn-estate.ru/media/cases/'], ['Журнал', 'https://barn-estate.ru/zhurnaly/']]],
       ['О BARNES', 'https://barn-estate.ru/mir-barnes/', [['Контакты', 'https://barn-estate.ru/contacts/'], ['Партнерам', 'https://barn-estate.ru/for-partners/'], ['Barnes Club', 'https://barn-estate.ru/barnes-club/'], ['СМИ о нас', 'https://barn-estate.ru/novosti/smi-o-nas/'], ['Мероприятия', 'https://barn-estate.ru/novosti/meropriyatiya/'], ['Команда', 'https://barn-estate.ru/team/'], ['Вакансии', 'https://barn-estate.ru/vacancies/'], ['Стиль жизни', 'https://barn-estate.ru/stily-zhizni/']]],
-      ['Собственникам', 'https://barn-estate.ru/sobstvennikam/', [['Продажа', 'https://barn-estate.ru/prodazha_sobstvennikam/'], ['Аренда', 'https://barn-estate.ru/arenda_sobstvennikam/'], ['Амбассадоры', 'https://barn-estate.ru/for-partners/']]]
+      ['Собственникам', 'https://barn-estate.ru/sobstvennikam/', [['Продажа', 'https://barn-estate.ru/prodazha_sobstvennikam/'], ['Аренда', 'https://barn-estate.ru/arenda_sobstvennikam/']]]
     ];
     var nav = document.createElement('nav');
     nav.className = 'site-header__nav';
@@ -140,15 +140,6 @@
       }
     });
 
-    document.querySelectorAll('.site-menu__nav-group, .site-menu__bottom-group').forEach(function (group) {
-      var title = group.querySelector('.site-menu__nav-title, .site-menu__bottom-title');
-      if (!title || title.textContent.trim().toUpperCase() !== 'СОБСТВЕННИКАМ') return;
-      if (group.querySelector('.site-menu__nav-list')) {
-        appendToGroup(group, '.site-menu__nav-list', 'site-menu__nav-link');
-      } else {
-        appendToGroup(group, '.site-menu__bottom-list', 'site-menu__bottom-link');
-      }
-    });
   }
 
   function enhanceHeroHeaderContacts() {
@@ -211,14 +202,6 @@
       brand.insertBefore(request, phone);
     }
 
-    if (!brand.querySelector('.owner-sale-sticky__ambassadors')) {
-      var ambassadors = document.createElement('a');
-      ambassadors.className = 'owner-sale-sticky__ambassadors';
-      ambassadors.href = 'https://barn-estate.ru/for-partners/';
-      ambassadors.textContent = 'Амбассадоры';
-      brand.insertBefore(ambassadors, brand.firstChild);
-    }
-
     if (!brand.querySelector('.owner-sale-sticky__messengers')) {
       var messengers = document.createElement('nav');
       messengers.className = 'owner-sale-sticky__messengers';
@@ -276,7 +259,7 @@
       ];
       list.innerHTML = anchors.map(function (item) {
         return '<li class="owner-sale-sticky__item"><a class="owner-sale-sticky__link" href="#' + item[1] + '">' + item[0] + '</a></li>';
-      }).join('') + '<li class="owner-sale-sticky__item owner-sale-sticky__item--ambassadors"><a class="owner-sale-sticky__link" href="https://barn-estate.ru/for-partners/">Амбассадоры</a></li><li class="owner-sale-sticky__item owner-sale-sticky__item--contacts"><button class="owner-sale-sticky__contact-toggle" type="button" aria-expanded="false" aria-controls="owner-rent-sticky-contacts" aria-label="Показать способы связи"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.4 8.4 0 0 1-9 8.5 9.8 9.8 0 0 1-4-.9L3 21l1.7-4.6A8.4 8.4 0 1 1 21 11.5Z"/><path d="M8 12h.01M12 12h.01M16 12h.01"/></svg></button></li>';
+      }).join('') + '<li class="owner-sale-sticky__item owner-sale-sticky__item--contacts"><button class="owner-sale-sticky__contact-toggle" type="button" aria-expanded="false" aria-controls="owner-rent-sticky-contacts" aria-label="Показать способы связи"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.4 8.4 0 0 1-9 8.5 9.8 9.8 0 0 1-4-.9L3 21l1.7-4.6A8.4 8.4 0 1 1 21 11.5Z"/><path d="M8 12h.01M12 12h.01M16 12h.01"/></svg></button></li>';
       list.dataset.ownerRentAnchors = 'true';
     }
 
